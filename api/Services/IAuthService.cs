@@ -2,5 +2,6 @@
 
 public interface IAuthService
 {
-    Task<UserRegisterResponseDto> AddUser(UserRegisterRequestDto userRequestDto);
+    Task<UserRegisterResponseDto> RegisterUser(UserRegisterRequestDto dto);
+    Task<UserLoginResponseDto> LoginUser(UserLoginRequestDto dto);
 }

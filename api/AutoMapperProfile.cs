@@ -8,5 +8,6 @@ public class AutoMapperProfile : Profile
     {
         CreateMap<UserRegisterRequestDto, User>().ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Passoword));
         CreateMap<User, UserRegisterResponseDto>();
+        CreateMap<User, UserLoginResponseDto>();    
     }
 }
