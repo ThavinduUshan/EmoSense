@@ -12,6 +12,7 @@ public class AuthController : ControllerBase
     {
         _authService = authService;
     }
+    
     [HttpPost("register")]
     public async Task<ActionResult<UserRegisterResponseDto>> Register(UserRegisterRequestDto dto)
     {
