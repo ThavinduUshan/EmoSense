@@ -13,18 +13,18 @@ public class AuthService : IAuthService
         _mapper = mapper;
     }
 
-    public async Task<UserResponseDto> AddUser(UserRequestDto userRequestDto)
+    public async Task<UserRegisterResponseDto> AddUser(UserRegisterRequestDto dto)
     {
         //Hashing the Password
-        userRequestDto.Passoword = BCrypt.Net.BCrypt.HashPassword(userRequestDto.Passoword);
+        dto.Passoword = BCrypt.Net.BCrypt.HashPassword(dto.Passoword);
 
         //Mapping the request Dto to the user entity.
-        var newUser = _mapper.Map<User>(userRequestDto);
+        var newUser = _mapper.Map<User>(dto);
 
         await _context.Users.AddAsync(newUser);
         await _context.SaveChangesAsync();
 
-        var registeredUser = _mapper.Map<UserResponseDto>(newUser);
+        var registeredUser = _mapper.Map<UserRegisterResponseDto>(newUser);
         return registeredUser;
     }
 }

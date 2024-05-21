@@ -1,6 +1,6 @@
 ﻿namespace api;
 
-public class UserRequestDto
+public class UserRegisterRequestDto
 {
     public string Name { get; set; }
     public string Email { get; set;}

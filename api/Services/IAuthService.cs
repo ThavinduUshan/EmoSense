@@ -2,5 +2,5 @@
 
 public interface IAuthService
 {
-    Task<UserResponseDto> AddUser(UserRequestDto userRequestDto);
+    Task<UserRegisterResponseDto> AddUser(UserRegisterRequestDto userRequestDto);
 }
