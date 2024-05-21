@@ -8,4 +8,7 @@ public class MoodSchedule
     [Required]
     public DateTime ScheduledAt { get; set; }
 
+    public int UserId { get; set; }
+    public User user{ get; set; }
+
 }
