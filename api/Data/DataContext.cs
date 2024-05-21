@@ -6,6 +6,7 @@ public class DataContext : DbContext
 {
     public DbSet<MoodEntry> MoodEntries { get; set; }
     public DbSet<MoodSchedule> MoodSchedules { get; set;}
+    public DbSet<User> Users { get; set; }
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
 
