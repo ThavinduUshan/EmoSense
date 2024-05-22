@@ -12,7 +12,7 @@ using api;
 namespace api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240522101213_UserRolesAdded")]
+    [Migration("20240522172136_UserRolesAdded")]
     partial class UserRolesAdded
     {
         /// <inheritdoc />
@@ -96,7 +96,12 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserRoleId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserRoleId");
 
                     b.ToTable("Users");
                 });
@@ -112,15 +117,9 @@ namespace api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("api.MoodEntry", b =>
@@ -145,15 +144,15 @@ namespace api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("api.UserRole", b =>
+            modelBuilder.Entity("api.User", b =>
                 {
-                    b.HasOne("api.User", "User")
-                        .WithOne("UserRole")
-                        .HasForeignKey("api.UserRole", "UserId")
+                    b.HasOne("api.UserRole", "UserRole")
+                        .WithMany("Users")
+                        .HasForeignKey("UserRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("UserRole");
                 });
 
             modelBuilder.Entity("api.User", b =>
@@ -161,8 +160,11 @@ namespace api.Migrations
                     b.Navigation("MoodEntries");
 
                     b.Navigation("MoodSchedules");
+                });
 
-                    b.Navigation("UserRole");
+            modelBuilder.Entity("api.UserRole", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
