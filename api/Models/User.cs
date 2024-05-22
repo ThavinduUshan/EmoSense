@@ -16,4 +16,5 @@ public class User
 
     public ICollection<MoodEntry> MoodEntries { get; set; }
     public ICollection<MoodSchedule> MoodSchedules { get; set; }
+    public UserRole UserRole { get; set; }
 }
