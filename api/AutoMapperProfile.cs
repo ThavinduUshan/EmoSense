@@ -14,5 +14,7 @@ public class AutoMapperProfile : Profile
         CreateMap<User, UserLoginResponseDto>().ForMember(dest => dest.Token, opt => opt.Ignore());    
         CreateMap<MoodEntry, MoodEntryResponseDto>();
         CreateMap<MoodEntryRequestDto, MoodEntry>();
+        CreateMap<MoodSchedule, MoodScheduleResponseDto>();
+        CreateMap<MoodScheduleRequestDto, MoodSchedule>();
     }
 }

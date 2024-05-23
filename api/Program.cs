@@ -37,6 +37,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMoodEntriesService, MoodEntriesService>();
+builder.Services.AddScoped<IMoodScheduleService, MoodScheduleService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<DataContext>(options =>{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
