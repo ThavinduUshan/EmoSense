@@ -8,6 +8,7 @@ public class DataContext : DbContext
     public DbSet<MoodSchedule> MoodSchedules { get; set;}
     public DbSet<User> Users { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
 
