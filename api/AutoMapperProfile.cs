@@ -16,5 +16,8 @@ public class AutoMapperProfile : Profile
         CreateMap<MoodEntryRequestDto, MoodEntry>();
         CreateMap<MoodSchedule, MoodScheduleResponseDto>();
         CreateMap<MoodScheduleRequestDto, MoodSchedule>();
+        CreateMap<MoodSchedule, Notification>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.IsSent, opt => opt.MapFrom(src => false));
     }
 }

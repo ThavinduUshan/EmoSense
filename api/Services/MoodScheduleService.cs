@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace api;
 
@@ -10,12 +11,14 @@ public class MoodScheduleService : IMoodScheduleService
     private readonly IMapper _mapper;
     private readonly DataContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IMemoryCache _cache;
 
-    public MoodScheduleService(IMapper mapper, DataContext context, IHttpContextAccessor httpContextAccessor)
+    public MoodScheduleService(IMapper mapper, DataContext context, IHttpContextAccessor httpContextAccessor, IMemoryCache cache)
     {
         _mapper = mapper;
         _context = context;
         _httpContextAccessor = httpContextAccessor;
+        _cache = cache;
     }
     public async Task<List<MoodScheduleResponseDto>> AddSchedule(MoodScheduleRequestDto dto)
     {
@@ -23,6 +26,10 @@ public class MoodScheduleService : IMoodScheduleService
         schedule.UserId = GetUserId();
         await _context.MoodSchedules.AddAsync(schedule);
         await _context.SaveChangesAsync();
+        
+        //set cache for background service with all schedules.
+        var scheduleList = await _context.MoodSchedules.Where(s => s.ScheduledAt > DateTime.Now).ToListAsync();
+        _cache.Set("Futureschedules", scheduleList);
 
         return await GetSchedules();
     }
